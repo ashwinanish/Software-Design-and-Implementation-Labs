@@ -72,7 +72,7 @@ int my_strcpy_safe(char *dst, size_t dstsize, const char *src) {
      * return 0. Think about dstsize == 0 before you write. */
     if (dstsize == 0) 
         return 0;
-    int i = 0;
+    size_t i = 0;
     while (src[i] != '\0' && i < dstsize - 1) {
         dst[i] = src[i];
         i++;
