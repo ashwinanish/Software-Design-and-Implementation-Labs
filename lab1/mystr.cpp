@@ -47,14 +47,22 @@ int my_strcmp(const char *a, const char *b) {
      * come out with the wrong sign if you compare as char. */
     unsigned char *ua = (unsigned char *)a;
     unsigned char *ub = (unsigned char *)b;
-    while(*ua!= '\0' && *ub != '\0') {
+
+    while (*ua != '\0' && *ub != '\0') {
         if (*ua != *ub) {
-            return *ua - *ub;
+            return (int)(*ua) - (int)(*ub);
         }
         ua++;
         ub++;
     }
-    return 0;
+
+    if (*ua == '\0' && *ub == '\0') {
+        return 0;
+    }
+    if (*ua == '\0') {
+        return -1;
+    }
+    return 1;
 }
 
 int my_strcpy_safe(char *dst, size_t dstsize, const char *src) {
@@ -67,6 +75,10 @@ int my_strcpy_safe(char *dst, size_t dstsize, const char *src) {
     while (*src != '\0' && dstsize > 1) {
         *dst++ = *src++;
         dstsize--;
+    }
+    if (*src != '\0') {
+        *dst = '\0';
+        return 0;
     }
     *dst = '\0';
     return 1;
