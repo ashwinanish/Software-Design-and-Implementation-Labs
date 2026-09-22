@@ -1,0 +1,17 @@
+17,rrrrr,2.30
+1,bbbbb,3.90
+2,ccccc,3.80
+3,ddddd,3.70
+4,eeeee,3.60
+5,fffff,3.50
+6,ggggg,3.40
+7,hhhhh,3.30
+8,iiiii,3.20
+9,jjjjj,3.10
+18,sssss,2.20
+11,lllll,2.90
+12,mmmmm,2.80
+13,nnnnn,2.70
+14,ooooo,2.60
+15,ppppp,2.50
+16,qqqqq,2.40
