@@ -1,60 +1,7 @@
-# Lab 3 -- <Ashwin Anish>, <AA224496>
+# Singly Linked List and Node Management
 
-Copy this file over `README.md` and fill it in. Four sections are graded (5 pts); keep each one short and specific. Delete the bracketed instructions as you go.
+This project implements a singly linked list in C++ with custom node insertion, traversal, and removal logic. It is built around the constraints of pointer-based data structures, where correctness depends on preserving the right links during updates and cleanup.
 
-## Removal strategy
+The implementation handles empty, head, middle, and tail removal cases while maintaining list integrity and avoiding invalid memory access. It also includes explicit cleanup logic to ensure that allocated nodes are released correctly and remain safe under repeated test scenarios.
 
-[Say which one you used: a trailing `Node *prev`, or the `Node **pp` idiom. Then draw the state of a 3-node list at the moment just before you unlink the middle node, with an arrow showing what your pointer variable points AT. ASCII is fine and ASCII is expected -- something like the sketch below, but for your own code, and with your variable in it.]
-
-
-I used the trailing pointer. The prev node keeps track of the previous node while going through the list. 
-```
-        head
-         |
-         v
-     +-------+     +-------+     +-------+
-     | 101   |     | 102   |     |   7   |
-     | next -|---->| next -|---->| next 0|
-     +-------+     +-------+     +-------+
-         ^
-         |   <-- put your prev or pp here, and say
-        prev                       exactly which pointer it holds the
-                                address of
-```
-
-[Then: which of the four cases (empty / head / middle / tail) does your single loop handle without a special case, and which ones still need one? If you used `Node **`, say what `*pp = victim->next` writes to in the head case versus the middle case.]
-
-The middle is handled without a special case. prev->next = victim->next. The empty list and tail needed some checking but the head needed a special case. 
-
-
-
-## Why `next` must be saved before the `free`
-
-[Two or three sentences. Say what `cur->next` is after `free(cur)`, why the program usually still prints the right answer anyway, and what valgrind calls it.]
-
-Before freeing a node, cur->next still holds the address of the next node. After free(cur), that pointer is dangling and no longer valid. The program usually still appears to work because the freed memory has not been overwritten yet, but that is undefined behavior; valgrind calls it a use-after-free / invalid read.
-
-## What a destructor would buy me
-
-[One short paragraph, required. You wrote `List_destroy` and then had to call it on every exit path from `main`. Name one specific place in your own code -- a function and an early return, or a failed-allocation path -- where forgetting the call would have leaked. Then say what you expect next week's destructor to change about that specific place. Your own words.]
-
-A destructor would have removed the need to remember cleanup at every exit point in main and in every helper test. One leak risk in my own code was in the early-return path inside a test function: if List_create succeeded and a later check failed before the final destroy call, the list and its nodes would leak. Next week’s destructor would centralize that cleanup so the test code would not need to manually free every path out, and the ownership rules would be enforced in one place.
-
-## valgrind
-
-[Paste the summary from `valgrind --leak-check=full --show-leak-kinds=all ./inventory`. The HEAP SUMMARY and ERROR SUMMARY lines are enough.]
-
-```
-==869760== HEAP SUMMARY:
-==869760==     in use at exit: 0 bytes in 0 blocks
-==869760==   total heap usage: 2,185 allocs, 2,185 frees, 263,871 bytes allocated
-==869760==
-==869760== All heap blocks were freed -- no leaks are possible
-==869760==
-==869760== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-```
-
-## AI citation
-
-[Required, even if the answer is "none". For any line or block you got from an assistant: which lines, which tool, what you asked, and what you changed after checking it. If you used one only to review code you had already written, say that -- it counts and it is a good use of it.]
-no ai used
+The project reflects a direct focus on foundational data-structure behavior, where small pointer mistakes can quickly create subtle and difficult-to-debug failures.
