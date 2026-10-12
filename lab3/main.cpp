@@ -342,6 +342,12 @@ static void test_many(void)
     List_destroy(l);
 }
 
+static void sum_qty(const Item *it, void *ctx)
+{
+    long *sum = (long *)ctx;
+    *sum += it->qty;
+}
+
 static void test_for_each_sum(void)
 {
     printf("test_for_each_sum\n");
@@ -356,10 +362,7 @@ static void test_for_each_sum(void)
     check(List_insert_back(l, 5, "item5", 5) == 1, "insert_back ok");
 
     long total = 0;
-    List_for_each(l, [](const Item *it, void *ctx) {
-        long *sum = (long *)ctx;
-        *sum += it->qty;
-    }, &total);
+    List_for_each(l, sum_qty, &total);
 
     check(total == 15, "total quantity is correct (1+2+3+4+5=15)");
 

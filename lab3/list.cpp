@@ -285,7 +285,7 @@ void List_print(const List *l)
     /* TODO: exactly one line, exactly this shape:
      *     [ ]
      *     [ (101,"bolt",4) -> (102,"nut",9) ]
-     * printf only.  No std::cout -- it is banned this week. */
+    * printf only.  No std::cout -- it is banned this week. */
     if (l == NULL) {
         printf("[ ]\n");
         return;
